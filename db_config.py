@@ -7,7 +7,7 @@ import mysql.connector
 from mysql.connector import Error
 
 class DatabaseConfig:
-    def __init__(self, host='localhost', user='root', password='qwerty', database='grademate_db'):
+    def __init__(self, host='localhost', user='root', password='qwerty4954', database='grademate_db'):
         """
         Initialize database configuration
         
@@ -39,23 +39,25 @@ class DatabaseConfig:
             
             if temp_connection.is_connected():
                 cursor = temp_connection.cursor()
-            # Create database if it doesn't exist
-            cursor.execute(f"CREATE DATABASE IF NOT EXISTS {self.database}")
-            cursor.close()
-            temp_connection.close()
-        
-        # Now connect to the specific database
-        self.connection = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            password=self.password,
-            database=self.database
-        )
-        
-        if self.connection.is_connected():
-            print(f"Successfully connected to MySQL database: {self.database}")
-            self.create_tables()
-            return self.connection        except Error as e:
+                # Create database if it doesn't exist
+                cursor.execute(f"CREATE DATABASE IF NOT EXISTS {self.database}")
+                cursor.close()
+                temp_connection.close()
+            
+            # Now connect to the specific database
+            self.connection = mysql.connector.connect(
+                host=self.host,
+                user=self.user,
+                password=self.password,
+                database=self.database
+            )
+            
+            if self.connection.is_connected():
+                print(f"Successfully connected to MySQL database: {self.database}")
+                self.create_tables()
+                return self.connection
+                
+        except Error as e:
             print(f"Error connecting to MySQL: {e}")
             return None
     

@@ -41,7 +41,7 @@ A clean, educational GUI application designed to help manage student data, marks
 
 1. **Clone or download the project**:
    ```bash
-   git clone https://github.com/your-username/GradeMate.git
+   git clone https://github.com/ashutoshpatraa/GradeMate.git
    cd GradeMate
    ```
 
@@ -59,8 +59,8 @@ A clean, educational GUI application designed to help manage student data, marks
      # Default configuration
      host='localhost'
      user='root'
-     password=''  # Enter your MySQL password
-     database='grademate'
+     password='qwerty'  # Your MySQL password
+     database='grademate_db'
      ```
 
 5. **Run the application**:
@@ -81,7 +81,7 @@ A clean, educational GUI application designed to help manage student data, marks
 
 ### Step 3: Create Database (Automatic)
 The application will automatically:
-- Create the `grademate` database if it doesn't exist
+- Create the `grademate_db` database if it doesn't exist
 - Create the required tables (`students` and `marks`)
 - Set up proper relationships and constraints
 
@@ -178,7 +178,7 @@ This project is designed for Class 12 Informatics Practices students and demonst
    - Ensure MySQL is installed properly
 
 2. **"Access denied for user 'root'"**
-   - Update password in `db_config.py`
+   - Update password in `db_config.py` (current password is set to 'qwerty')
    - Check MySQL user permissions
 
 3. **"No module named 'mysql.connector'"**
@@ -192,6 +192,12 @@ This project is designed for Class 12 Informatics Practices students and demonst
 - Ensure Python 3.7+ is installed
 - All code is well-commented for learning purposes
 - Database tables are created automatically on first run
+
+---
+
+## Made with ❤️ by Ashu
+
+*GradeMate - Simplifying student grade management for educational institutions*
 
 ## License
 This project is open source and available under the MIT License.
