@@ -81,16 +81,27 @@ class GradeMateApp:
                        background=self.colors['bg_primary'],
                        borderwidth=0)
         
-        # Configure LabelFrame
+        # Configure LabelFrame with glassmorphism
         style.configure('TLabelframe',
-                       background=self.colors['bg_secondary'],
+                       background='rgba(22, 27, 34, 0.8)',
                        foreground=self.colors['accent_cyan'],
                        borderwidth=1,
-                       relief='solid')
+                       relief='flat')
         style.configure('TLabelframe.Label',
-                       background=self.colors['bg_secondary'],
+                       background='rgba(22, 27, 34, 0.8)',
                        foreground=self.colors['accent_cyan'],
                        font=('Segoe UI', 10, 'bold'))
+        
+        # Glassmorphism LabelFrame styles
+        style.configure('Glass.TLabelframe',
+                       background='rgba(33, 38, 45, 0.6)',
+                       foreground=self.colors['accent_blue'],
+                       borderwidth=1,
+                       relief='flat')
+        style.configure('Glass.TLabelframe.Label',
+                       background='rgba(33, 38, 45, 0.6)',
+                       foreground=self.colors['accent_blue'],
+                       font=('Segoe UI', 11, 'bold'))
         
         # Configure Labels
         style.configure('TLabel',
@@ -109,17 +120,19 @@ class GradeMateApp:
         style.map('TEntry',
                  focuscolor=[('focus', self.colors['accent_blue'])])
         
-        # Configure Buttons
+        # Configure Buttons with Glassmorphism
         style.configure('TButton',
                        background=self.colors['accent_blue'],
                        foreground='white',
-                       borderwidth=0,
+                       borderwidth=1,
+                       relief='flat',
                        focuscolor='none',
                        font=('Segoe UI', 9, 'bold'),
                        padding=[15, 8])
         style.map('TButton',
                  background=[('active', self.colors['accent_purple']),
-                           ('pressed', self.colors['accent_cyan'])])
+                           ('pressed', self.colors['accent_cyan']),
+                           ('focus', self.colors['accent_blue'])])
         
         # Configure Treeview
         style.configure('Treeview',
@@ -149,26 +162,77 @@ class GradeMateApp:
         style.map('Vertical.TScrollbar',
                  background=[('active', self.colors['accent_blue'])])
         
-        # Configure special button styles
+        # Configure special button styles with Glassmorphism
         style.configure('Success.TButton',
-                       background=self.colors['success'],
-                       foreground='white')
+                       background='#3FB950',
+                       foreground='white',
+                       borderwidth=1,
+                       relief='flat',
+                       padding=[15, 10])
         style.map('Success.TButton',
-                 background=[('active', '#2EA043')])
+                 background=[('active', '#2EA043'),
+                           ('pressed', '#238636')])
         
         style.configure('Warning.TButton',
-                       background=self.colors['warning'],
-                       foreground='white')
+                       background='#F85149',
+                       foreground='white',
+                       borderwidth=1,
+                       relief='flat',
+                       padding=[15, 10])
         style.map('Warning.TButton',
-                 background=[('active', '#DA3633')])
+                 background=[('active', '#DA3633'),
+                           ('pressed', '#B91C1C')])
         
         style.configure('Secondary.TButton',
-                       background=self.colors['bg_tertiary'],
+                       background='rgba(33, 38, 45, 0.7)',
                        foreground=self.colors['text_primary'],
                        borderwidth=1,
-                       relief='solid')
+                       relief='flat',
+                       padding=[15, 10])
         style.map('Secondary.TButton',
-                 background=[('active', self.colors['hover'])])
+                 background=[('active', self.colors['hover']),
+                           ('pressed', self.colors['border'])])
+        
+        # Glassmorphism Button Styles
+        style.configure('Glass.TButton',
+                       background='rgba(88, 166, 255, 0.2)',
+                       foreground=self.colors['accent_blue'],
+                       borderwidth=1,
+                       relief='flat',
+                       padding=[20, 12])
+        style.map('Glass.TButton',
+                 background=[('active', 'rgba(88, 166, 255, 0.3)'),
+                           ('pressed', 'rgba(88, 166, 255, 0.4)')])
+        
+        style.configure('GlassSuccess.TButton',
+                       background='rgba(63, 185, 80, 0.2)',
+                       foreground=self.colors['success'],
+                       borderwidth=1,
+                       relief='flat',
+                       padding=[20, 12])
+        style.map('GlassSuccess.TButton',
+                 background=[('active', 'rgba(63, 185, 80, 0.3)'),
+                           ('pressed', 'rgba(63, 185, 80, 0.4)')])
+        
+        style.configure('GlassWarning.TButton',
+                       background='rgba(248, 81, 73, 0.2)',
+                       foreground=self.colors['warning'],
+                       borderwidth=1,
+                       relief='flat',
+                       padding=[20, 12])
+        style.map('GlassWarning.TButton',
+                 background=[('active', 'rgba(248, 81, 73, 0.3)'),
+                           ('pressed', 'rgba(248, 81, 73, 0.4)')])
+        
+        style.configure('GlassSecondary.TButton',
+                       background='rgba(139, 148, 158, 0.1)',
+                       foreground=self.colors['text_secondary'],
+                       borderwidth=1,
+                       relief='flat',
+                       padding=[20, 12])
+        style.map('GlassSecondary.TButton',
+                 background=[('active', 'rgba(139, 148, 158, 0.2)'),
+                           ('pressed', 'rgba(139, 148, 158, 0.3)')])
     
     def create_widgets(self):
         """
@@ -235,9 +299,9 @@ class GradeMateApp:
         container = ttk.Frame(student_frame)
         container.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Input frame with enhanced styling
-        input_frame = ttk.LabelFrame(container, text="📝 Student Information", padding=20)
-        input_frame.pack(fill='x', pady=(0, 20))
+        # Input frame with enhanced glassmorphism styling
+        input_frame = ttk.LabelFrame(container, text="✨ Student Information", padding=25, style='Glass.TLabelframe')
+        input_frame.pack(fill='x', pady=(0, 25))
         
         # Configure grid weights for responsive design
         input_frame.columnconfigure(1, weight=1)
@@ -262,18 +326,18 @@ class GradeMateApp:
         button_frame = ttk.Frame(input_frame)
         button_frame.grid(row=2, column=0, columnspan=4, pady=(15, 0))
         
-        # Styled buttons with icons
-        ttk.Button(button_frame, text="➕ Add Student", 
-                  command=self.add_student, style='Success.TButton').pack(side='left', padx=(0, 10))
-        ttk.Button(button_frame, text="✏️ Update Student", 
-                  command=self.update_student).pack(side='left', padx=(0, 10))
-        ttk.Button(button_frame, text="🗑️ Delete Student", 
-                  command=self.delete_student, style='Warning.TButton').pack(side='left', padx=(0, 10))
-        ttk.Button(button_frame, text="🧹 Clear Fields", 
-                  command=self.clear_student_fields, style='Secondary.TButton').pack(side='left', padx=(0, 10))
+        # Styled buttons with glassmorphism icons
+        ttk.Button(button_frame, text="✨ Add Student", 
+                  command=self.add_student, style='GlassSuccess.TButton').pack(side='left', padx=(0, 15))
+        ttk.Button(button_frame, text="🔮 Update Student", 
+                  command=self.update_student, style='Glass.TButton').pack(side='left', padx=(0, 15))
+        ttk.Button(button_frame, text="� Delete Student", 
+                  command=self.delete_student, style='GlassWarning.TButton').pack(side='left', padx=(0, 15))
+        ttk.Button(button_frame, text="🌊 Clear Fields", 
+                  command=self.clear_student_fields, style='GlassSecondary.TButton').pack(side='left', padx=(0, 15))
         
-        # Students list frame with enhanced styling
-        list_frame = ttk.LabelFrame(container, text="📋 Students Database", padding=15)
+        # Students list frame with enhanced glassmorphism styling
+        list_frame = ttk.LabelFrame(container, text="� Students Database", padding=20, style='Glass.TLabelframe')
         list_frame.pack(fill='both', expand=True)
         
         # Create frame for treeview and scrollbar
@@ -319,9 +383,9 @@ class GradeMateApp:
         container = ttk.Frame(marks_frame)
         container.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Input frame with enhanced styling
-        input_frame = ttk.LabelFrame(container, text="📝 Add Student Marks", padding=20)
-        input_frame.pack(fill='x', pady=(0, 20))
+        # Input frame with enhanced glassmorphism styling
+        input_frame = ttk.LabelFrame(container, text="✨ Add Student Marks", padding=25, style='Glass.TLabelframe')
+        input_frame.pack(fill='x', pady=(0, 25))
         
         # Configure grid weights
         input_frame.columnconfigure(1, weight=1)
@@ -346,14 +410,14 @@ class GradeMateApp:
         button_frame = ttk.Frame(input_frame)
         button_frame.grid(row=2, column=0, columnspan=4, pady=(15, 0))
         
-        # Styled buttons
-        ttk.Button(button_frame, text="➕ Add Marks", 
-                  command=self.add_marks, style='Success.TButton').pack(side='left', padx=(0, 10))
-        ttk.Button(button_frame, text="🧹 Clear Fields", 
-                  command=self.clear_marks_fields, style='Secondary.TButton').pack(side='left')
+        # Styled glassmorphism buttons
+        ttk.Button(button_frame, text="✨ Add Marks", 
+                  command=self.add_marks, style='GlassSuccess.TButton').pack(side='left', padx=(0, 15))
+        ttk.Button(button_frame, text="🌊 Clear Fields", 
+                  command=self.clear_marks_fields, style='GlassSecondary.TButton').pack(side='left')
         
-        # Marks list frame
-        list_frame = ttk.LabelFrame(container, text="📋 Marks Database", padding=15)
+        # Marks list frame with glassmorphism
+        list_frame = ttk.LabelFrame(container, text="� Marks Database", padding=20, style='Glass.TLabelframe')
         list_frame.pack(fill='both', expand=True)
         
         # Create frame for treeview and scrollbar
@@ -398,27 +462,27 @@ class GradeMateApp:
         container = ttk.Frame(reports_frame)
         container.pack(fill='both', expand=True, padx=20, pady=20)
         
-        # Enhanced buttons frame
-        button_frame = ttk.LabelFrame(container, text="📊 Generate Reports", padding=15)
-        button_frame.pack(fill='x', pady=(0, 20))
+        # Enhanced buttons frame with glassmorphism
+        button_frame = ttk.LabelFrame(container, text="� Generate Reports", padding=20, style='Glass.TLabelframe')
+        button_frame.pack(fill='x', pady=(0, 25))
         
         # Create button container for better layout
         btn_container = ttk.Frame(button_frame)
         btn_container.pack(expand=True)
         
-        # Styled report buttons with icons
-        ttk.Button(btn_container, text="📊 Student Averages", 
+        # Styled glassmorphism report buttons with enhanced icons
+        ttk.Button(btn_container, text="� Student Averages", 
                   command=self.show_student_averages,
-                  style='TButton').pack(side='left', padx=(0, 15))
-        ttk.Button(btn_container, text="🏆 Top Scorers", 
+                  style='Glass.TButton').pack(side='left', padx=(0, 20))
+        ttk.Button(btn_container, text="✨ Top Scorers", 
                   command=self.show_top_scorers,
-                  style='Success.TButton').pack(side='left', padx=(0, 15))
-        ttk.Button(btn_container, text="📄 Generate Report Card", 
+                  style='GlassSuccess.TButton').pack(side='left', padx=(0, 20))
+        ttk.Button(btn_container, text="� Generate Report Card", 
                   command=self.generate_report_card,
-                  style='TButton').pack(side='left')
+                  style='Glass.TButton').pack(side='left')
         
-        # Enhanced report display frame
-        display_frame = ttk.LabelFrame(container, text="📋 Report Display", padding=15)
+        # Enhanced report display frame with glassmorphism
+        display_frame = ttk.LabelFrame(container, text="� Report Display", padding=20, style='Glass.TLabelframe')
         display_frame.pack(fill='both', expand=True)
         
         # Create frame for text widget and scrollbar
