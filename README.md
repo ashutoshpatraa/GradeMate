@@ -1,4 +1,180 @@
-# GradeMate
+# GradePulse 🌟
+*A Wuthering Waves-Inspired Student Grade Management System*
+
+## ✨ Overview
+GradePulse is a modern, glassmorphism-styled student grade tracking application inspired by the stunning aesthetic of Wuthering Waves. Built with Python and CustomTkinter, it offers an intuitive interface for managing academic performance with beautiful visual analytics.
+
+## 🎨 Design Philosophy
+- **Wuthering Waves Aesthetic**: Dark theme with neon blue/cyan gradients
+- **Glassmorphism UI**: Frosted glass cards with subtle transparency
+- **Modern Typography**: Clean, professional fonts with proper hierarchy
+- **Interactive Elements**: Smooth hover effects and gradient animations
+- **Data Visualization**: Integrated matplotlib charts with custom styling
+
+## 🚀 Features
+
+### 📊 Dashboard
+- Real-time grade statistics and analytics
+- Interactive charts showing grade distribution and trends
+- Quick access to key metrics (GPA, total subjects, recent performance)
+- Beautiful glassmorphism cards with gradient backgrounds
+
+### 📚 Subject Management
+- Add, edit, and delete subjects
+- Comprehensive grade tracking per subject
+- Assignment and exam management
+- Progress monitoring with visual indicators
+
+### 📈 Analytics & Insights
+- Grade trend analysis with matplotlib integration
+- Performance comparison charts
+- Semester-wise progress tracking
+- Export functionality for reports
+
+### 🎯 Modern Interface
+- Left navigation panel with smooth transitions
+- Frosted glass effect on cards and modals
+- Gradient accent buttons with hover animations
+- Dark theme optimized for extended use
+
+## 🛠️ Tech Stack
+- **Frontend**: Python 3.13+ with CustomTkinter
+- **Charts**: Matplotlib with custom Wuthering Waves styling
+- **Database**: MySQL 8.0 for data persistence
+- **Design**: Glassmorphism with CSS-inspired gradients
+- **Analytics**: NumPy for statistical calculations
+
+## 📋 Prerequisites
+- Python 3.13 or higher
+- MySQL 8.0 installed and running
+- Git (for cloning the repository)
+
+## 🔧 Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/GradePulse.git
+cd GradePulse
+```
+
+### 2. Set Up Virtual Environment
+```bash
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+```
+
+### 3. Install Dependencies
+```bash
+pip install customtkinter matplotlib numpy mysql-connector-python
+```
+
+### 4. Database Setup
+1. Start MySQL server
+2. Create database:
+```sql
+CREATE DATABASE gradepulse_db;
+USE gradepulse_db;
+```
+
+### 5. Configure Database Connection
+Update the database credentials in `app.py`:
+```python
+# Default configuration
+host = "localhost"
+user = "root"
+password = "qwerty"
+database = "gradepulse_db"
+```
+
+## 🚀 Running the Application
+```bash
+python app.py
+```
+
+## 🎮 Usage Guide
+
+### Getting Started
+1. Launch the application
+2. The dashboard will display your grade overview
+3. Use the left navigation to explore different sections
+4. Add subjects and grades to see the analytics in action
+
+### Navigation
+- **Dashboard**: Overview of all academic metrics
+- **Subjects**: Manage your course subjects
+- **Grades**: Input and track individual grades
+- **Analytics**: Detailed performance insights
+- **Settings**: Customize application preferences
+
+### Key Features
+- **Quick Add**: Use the floating action button for rapid grade entry
+- **Visual Feedback**: Hover effects and animations provide intuitive interactions
+- **Data Export**: Generate reports for academic planning
+- **Dark Mode**: Optimized for comfortable extended use
+
+## 🎨 Customization
+
+### Color Scheme
+The application uses a carefully crafted Wuthering Waves-inspired palette:
+- **Primary**: Deep navy (`#1a1a2e`)
+- **Secondary**: Rich purple (`#16213e`)
+- **Accent**: Neon cyan (`#00f5ff`)
+- **Gradient**: Blue to cyan transitions
+- **Text**: High contrast white/cyan on dark backgrounds
+
+### Themes
+While primarily designed for the Wuthering Waves aesthetic, the modular design allows for easy theme customization by modifying the color constants in `app.py`.
+
+## 🗃️ Database Schema
+```sql
+-- Subjects table
+CREATE TABLE subjects (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    code VARCHAR(20) UNIQUE,
+    credits INT DEFAULT 3,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Grades table
+CREATE TABLE grades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    subject_id INT,
+    assignment_name VARCHAR(100),
+    grade DECIMAL(5,2),
+    max_points DECIMAL(5,2),
+    date_recorded DATE,
+    FOREIGN KEY (subject_id) REFERENCES subjects(id)
+);
+```
+
+## 🤝 Contributing
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+- Wuthering Waves for the incredible visual inspiration
+- CustomTkinter community for the modern GUI framework
+- Matplotlib team for excellent charting capabilities
+
+## 📞 Support
+If you encounter any issues or have questions:
+1. Check the Issues section on GitHub
+2. Review the documentation above
+3. Create a new issue with detailed information
+
+---
+
+**Made with ❤️ and inspired by the beauty of Wuthering Waves**
 A clean, educational GUI application designed to help manage student data, marks, and generate comprehensive reports.
 
 ## Features

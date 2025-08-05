@@ -1,11 +1,12 @@
 """
 GradeMate - Student Grade Management System
-A GUI application built with Python tkinter and MySQL for managing student data and marks.
-Enhanced with Wuthering Waves inspired midnight black theme.
+A modern GUI application inspired by Wuthering Waves aesthetic.
+Built with CustomTkinter and MySQL for managing student data and marks.
 """
 
+import customtkinter as ctk
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import messagebox, ttk
 from db_config import db_config
 import mysql.connector
 from mysql.connector import Error
@@ -13,34 +14,37 @@ from mysql.connector import Error
 class GradeMateApp:
     def __init__(self, root):
         """
-        Initialize the main application window with WuWa midnight theme
+        Initialize the main application window with Wuthering Waves theme
         """
         self.root = root
         self.root.title("GradeMate - Student Grade Management System")
-        self.root.geometry("1000x700")
+        self.root.geometry("1400x900")
         self.root.resizable(True, True)
         
-        # WuWa Midnight Theme Colors
+        # Wuthering Waves Theme Colors
         self.colors = {
-            'bg_primary': '#0D1117',      # Deep midnight black
-            'bg_secondary': '#161B22',    # Slightly lighter black
-            'bg_tertiary': '#21262D',     # Card background
-            'accent_blue': '#58A6FF',     # Bright blue accent
-            'accent_purple': '#8B5CF6',   # Purple accent
-            'accent_cyan': '#79C0FF',     # Cyan accent
-            'text_primary': '#F0F6FC',    # Primary white text
-            'text_secondary': '#8B949E',  # Secondary gray text
-            'border': '#30363D',          # Border color
-            'success': '#3FB950',         # Success green
-            'warning': '#F85149',         # Warning red
-            'hover': '#262C36'            # Hover state
+            'bg_primary': '#0A0A0A',      # Deep black background
+            'bg_secondary': '#1A1A1A',    # Secondary dark
+            'bg_tertiary': '#2A2A2A',     # Card background
+            'accent_cyan': '#00FFF7',     # Glowing neon cyan
+            'accent_blue': '#00BFFF',     # Bright blue
+            'accent_purple': '#8A2BE2',   # Purple accent
+            'text_primary': '#FFFFFF',    # Pure white text
+            'text_secondary': '#CCCCCC',  # Light gray text
+            'text_muted': '#808080',      # Muted gray
+            'border': '#333333',          # Border color
+            'success': '#00FF41',         # Success green
+            'warning': '#FFD700',         # Warning gold
+            'error': '#FF073A',           # Error red
+            'hover': '#404040'            # Hover state
         }
         
-        # Configure root window
-        self.root.configure(bg=self.colors['bg_primary'])
+        # Configure CustomTkinter appearance
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
         
-        # Apply custom theme
-        self.setup_theme()
+        # Configure root window
+        self.root.configure(fg_color=self.colors['bg_primary'])
         
         # Connect to database
         self.connection = db_config.create_connection()
@@ -61,231 +65,219 @@ class GradeMateApp:
         # Configure main theme
         style.theme_use('clam')
         
-        # Configure Notebook (tabs)
+        # Configure Notebook (tabs) - Modern Design
         style.configure('TNotebook', 
                        background=self.colors['bg_primary'],
-                       borderwidth=0)
+                       borderwidth=0,
+                       tabmargins=[2, 5, 2, 0])
         style.configure('TNotebook.Tab',
                        background=self.colors['bg_secondary'],
-                       foreground=self.colors['text_secondary'],
-                       padding=[20, 8],
-                       borderwidth=0)
+                       foreground=self.colors['text_muted'],
+                       padding=[25, 15],
+                       borderwidth=0,
+                       focuscolor='none')
         style.map('TNotebook.Tab',
-                 background=[('selected', self.colors['bg_tertiary']),
+                 background=[('selected', self.colors['accent_blue']),
                            ('active', self.colors['hover'])],
-                 foreground=[('selected', self.colors['accent_blue']),
-                           ('active', self.colors['text_primary'])])
+                 foreground=[('selected', '#FFFFFF'),
+                           ('active', self.colors['text_primary'])],
+                 expand=[('selected', [1, 1, 1, 0])])
         
         # Configure Frame
         style.configure('TFrame',
                        background=self.colors['bg_primary'],
                        borderwidth=0)
         
-        # Configure LabelFrame with glassmorphism
+        # Configure LabelFrame - Minimal & Clean
         style.configure('TLabelframe',
-                       background='rgba(22, 27, 34, 0.8)',
-                       foreground=self.colors['accent_cyan'],
-                       borderwidth=1,
+                       background=self.colors['bg_primary'],
+                       foreground=self.colors['text_primary'],
+                       borderwidth=0,
                        relief='flat')
         style.configure('TLabelframe.Label',
-                       background='rgba(22, 27, 34, 0.8)',
-                       foreground=self.colors['accent_cyan'],
-                       font=('Segoe UI', 10, 'bold'))
-        
-        # Glassmorphism LabelFrame styles
-        style.configure('Glass.TLabelframe',
-                       background='rgba(33, 38, 45, 0.6)',
-                       foreground=self.colors['accent_blue'],
-                       borderwidth=1,
-                       relief='flat')
-        style.configure('Glass.TLabelframe.Label',
-                       background='rgba(33, 38, 45, 0.6)',
-                       foreground=self.colors['accent_blue'],
-                       font=('Segoe UI', 11, 'bold'))
-        
-        # Configure Labels
-        style.configure('TLabel',
-                       background=self.colors['bg_secondary'],
+                       background=self.colors['bg_primary'],
                        foreground=self.colors['text_primary'],
-                       font=('Segoe UI', 9))
+                       font=('Segoe UI', 12, 'bold'))
         
-        # Configure Entry widgets
-        style.configure('TEntry',
-                       fieldbackground=self.colors['bg_tertiary'],
+        # Modern Card Style
+        style.configure('Card.TLabelframe',
                        background=self.colors['bg_tertiary'],
                        foreground=self.colors['text_primary'],
                        borderwidth=1,
-                       relief='solid',
-                       insertcolor=self.colors['accent_blue'])
-        style.map('TEntry',
-                 focuscolor=[('focus', self.colors['accent_blue'])])
+                       relief='flat')
+        style.configure('Card.TLabelframe.Label',
+                       background=self.colors['bg_tertiary'],
+                       foreground=self.colors['accent_cyan'],
+                       font=('Segoe UI', 13, 'bold'))
         
-        # Configure Buttons with Glassmorphism
+        # Configure Labels - Better Typography
+        style.configure('TLabel',
+                       background=self.colors['bg_primary'],
+                       foreground=self.colors['text_primary'],
+                       font=('Segoe UI', 11))
+        
+        # Configure Entry widgets - Modern Input Fields
+        style.configure('TEntry',
+                       fieldbackground=self.colors['bg_accent'],
+                       background=self.colors['bg_accent'],
+                       foreground=self.colors['text_primary'],
+                       borderwidth=2,
+                       relief='flat',
+                       insertcolor=self.colors['accent_blue'],
+                       font=('Segoe UI', 11))
+        style.map('TEntry',
+                 focuscolor=[('focus', self.colors['accent_blue'])],
+                 bordercolor=[('focus', self.colors['accent_blue'])])
+        
+        # Configure Modern Buttons
         style.configure('TButton',
                        background=self.colors['accent_blue'],
-                       foreground='white',
-                       borderwidth=1,
+                       foreground='#FFFFFF',
+                       borderwidth=0,
                        relief='flat',
                        focuscolor='none',
-                       font=('Segoe UI', 9, 'bold'),
-                       padding=[15, 8])
+                       font=('Segoe UI', 11, 'bold'),
+                       padding=[20, 12])
         style.map('TButton',
                  background=[('active', self.colors['accent_purple']),
-                           ('pressed', self.colors['accent_cyan']),
-                           ('focus', self.colors['accent_blue'])])
+                           ('pressed', '#2563EB')])
         
-        # Configure Treeview
+        # Premium Button Styles
+        style.configure('Primary.TButton',
+                       background=self.colors['accent_blue'],
+                       foreground='#FFFFFF',
+                       font=('Segoe UI', 11, 'bold'),
+                       padding=[25, 15])
+        style.map('Primary.TButton',
+                 background=[('active', '#2563EB'),
+                           ('pressed', '#1D4ED8')])
+        
+        style.configure('Success.TButton',
+                       background=self.colors['success'],
+                       foreground='#FFFFFF',
+                       font=('Segoe UI', 11, 'bold'),
+                       padding=[25, 15])
+        style.map('Success.TButton',
+                 background=[('active', '#38A169'),
+                           ('pressed', '#2F855A')])
+        
+        style.configure('Warning.TButton',
+                       background=self.colors['warning'],
+                       foreground='#FFFFFF',
+                       font=('Segoe UI', 11, 'bold'),
+                       padding=[25, 15])
+        style.map('Warning.TButton',
+                 background=[('active', '#DD6B20'),
+                           ('pressed', '#C05621')])
+        
+        style.configure('Secondary.TButton',
+                       background=self.colors['bg_accent'],
+                       foreground=self.colors['text_primary'],
+                       font=('Segoe UI', 11),
+                       padding=[25, 15])
+        style.map('Secondary.TButton',
+                 background=[('active', self.colors['hover']),
+                           ('pressed', self.colors['border'])])
+        
+        # Configure Modern Treeview
         style.configure('Treeview',
                        background=self.colors['bg_tertiary'],
                        foreground=self.colors['text_primary'],
                        fieldbackground=self.colors['bg_tertiary'],
                        borderwidth=0,
-                       font=('Segoe UI', 9))
+                       font=('Segoe UI', 10),
+                       rowheight=35)
         style.configure('Treeview.Heading',
-                       background=self.colors['bg_secondary'],
-                       foreground=self.colors['accent_cyan'],
-                       font=('Segoe UI', 9, 'bold'),
-                       borderwidth=1,
-                       relief='solid')
+                       background=self.colors['bg_accent'],
+                       foreground=self.colors['text_primary'],
+                       font=('Segoe UI', 11, 'bold'),
+                       borderwidth=0,
+                       relief='flat')
         style.map('Treeview',
                  background=[('selected', self.colors['accent_blue'])],
-                 foreground=[('selected', 'white')])
+                 foreground=[('selected', '#FFFFFF')])
+        style.map('Treeview.Heading',
+                 background=[('active', self.colors['hover'])])
         
-        # Configure Scrollbar
+        # Configure Modern Scrollbar
         style.configure('Vertical.TScrollbar',
-                       background=self.colors['bg_secondary'],
+                       background=self.colors['bg_accent'],
                        troughcolor=self.colors['bg_primary'],
                        borderwidth=0,
                        arrowcolor=self.colors['text_secondary'],
-                       darkcolor=self.colors['bg_secondary'],
-                       lightcolor=self.colors['bg_secondary'])
+                       darkcolor=self.colors['bg_accent'],
+                       lightcolor=self.colors['bg_accent'])
         style.map('Vertical.TScrollbar',
                  background=[('active', self.colors['accent_blue'])])
         
-        # Configure special button styles with Glassmorphism
-        style.configure('Success.TButton',
-                       background='#3FB950',
-                       foreground='white',
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[15, 10])
-        style.map('Success.TButton',
-                 background=[('active', '#2EA043'),
-                           ('pressed', '#238636')])
-        
-        style.configure('Warning.TButton',
-                       background='#F85149',
-                       foreground='white',
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[15, 10])
-        style.map('Warning.TButton',
-                 background=[('active', '#DA3633'),
-                           ('pressed', '#B91C1C')])
-        
-        style.configure('Secondary.TButton',
-                       background='rgba(33, 38, 45, 0.7)',
-                       foreground=self.colors['text_primary'],
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[15, 10])
-        style.map('Secondary.TButton',
-                 background=[('active', self.colors['hover']),
-                           ('pressed', self.colors['border'])])
-        
-        # Glassmorphism Button Styles
-        style.configure('Glass.TButton',
-                       background='rgba(88, 166, 255, 0.2)',
-                       foreground=self.colors['accent_blue'],
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[20, 12])
-        style.map('Glass.TButton',
-                 background=[('active', 'rgba(88, 166, 255, 0.3)'),
-                           ('pressed', 'rgba(88, 166, 255, 0.4)')])
-        
-        style.configure('GlassSuccess.TButton',
-                       background='rgba(63, 185, 80, 0.2)',
-                       foreground=self.colors['success'],
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[20, 12])
-        style.map('GlassSuccess.TButton',
-                 background=[('active', 'rgba(63, 185, 80, 0.3)'),
-                           ('pressed', 'rgba(63, 185, 80, 0.4)')])
-        
-        style.configure('GlassWarning.TButton',
-                       background='rgba(248, 81, 73, 0.2)',
-                       foreground=self.colors['warning'],
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[20, 12])
-        style.map('GlassWarning.TButton',
-                 background=[('active', 'rgba(248, 81, 73, 0.3)'),
-                           ('pressed', 'rgba(248, 81, 73, 0.4)')])
-        
-        style.configure('GlassSecondary.TButton',
-                       background='rgba(139, 148, 158, 0.1)',
-                       foreground=self.colors['text_secondary'],
-                       borderwidth=1,
-                       relief='flat',
-                       padding=[20, 12])
-        style.map('GlassSecondary.TButton',
-                 background=[('active', 'rgba(139, 148, 158, 0.2)'),
-                           ('pressed', 'rgba(139, 148, 158, 0.3)')])
-    
     def create_widgets(self):
         """
-        Create and organize all GUI widgets with enhanced styling
+        Create and organize all GUI widgets with modern design
         """
-        # Create main container with padding
+        # Main container with better spacing
         main_container = ttk.Frame(self.root)
-        main_container.pack(fill='both', expand=True, padx=15, pady=15)
+        main_container.pack(fill='both', expand=True, padx=30, pady=30)
         
-        # Title frame with gradient-like effect
-        title_frame = tk.Frame(main_container, bg=self.colors['bg_secondary'], height=60)
-        title_frame.pack(fill='x', pady=(0, 15))
-        title_frame.pack_propagate(False)
+        # Modern Header Section
+        self.create_header(main_container)
         
-        # App title
-        title_label = tk.Label(title_frame, 
-                              text="🎓 GradeMate",
-                              font=('Segoe UI', 18, 'bold'),
-                              bg=self.colors['bg_secondary'],
-                              fg=self.colors['accent_cyan'])
-        title_label.pack(side='left', padx=20, pady=15)
-        
-        # Subtitle
-        subtitle_label = tk.Label(title_frame,
-                                 text="Student Grade Management System",
-                                 font=('Segoe UI', 10),
-                                 bg=self.colors['bg_secondary'],
-                                 fg=self.colors['text_secondary'])
-        subtitle_label.pack(side='left', padx=(0, 20), pady=15)
-        
-        # Create notebook for tabs
+        # Create notebook for tabs with improved spacing
         self.notebook = ttk.Notebook(main_container)
-        self.notebook.pack(fill='both', expand=True, pady=(0, 10))
+        self.notebook.pack(fill='both', expand=True, pady=(30, 20))
         
         # Create tabs
         self.create_student_tab()
         self.create_marks_tab()
         self.create_reports_tab()
         
-        # Enhanced status bar
-        status_frame = tk.Frame(main_container, bg=self.colors['bg_secondary'], height=35)
+        # Modern status bar
+        self.create_status_bar(main_container)
+    
+    def create_header(self, parent):
+        """
+        Create modern header with proper branding
+        """
+        header_frame = tk.Frame(parent, bg=self.colors['bg_primary'], height=80)
+        header_frame.pack(fill='x', pady=(0, 30))
+        header_frame.pack_propagate(False)
+        
+        # Brand container
+        brand_container = tk.Frame(header_frame, bg=self.colors['bg_primary'])
+        brand_container.pack(expand=True, fill='both')
+        
+        # App title with proper hierarchy
+        title_label = tk.Label(brand_container, 
+                              text="GradeMate",
+                              font=('Segoe UI', 28, 'bold'),
+                              bg=self.colors['bg_primary'],
+                              fg=self.colors['accent_cyan'])
+        title_label.pack(pady=(15, 5))
+        
+        # Subtitle with better typography
+        subtitle_label = tk.Label(brand_container,
+                                 text="Student Grade Management System",
+                                 font=('Segoe UI', 14),
+                                 bg=self.colors['bg_primary'],
+                                 fg=self.colors['text_secondary'])
+        subtitle_label.pack()
+    
+    def create_status_bar(self, parent):
+        """
+        Create modern status bar
+        """
+        status_frame = tk.Frame(parent, bg=self.colors['bg_tertiary'], height=50)
         status_frame.pack(fill='x')
         status_frame.pack_propagate(False)
         
         self.status_var = tk.StringVar()
-        self.status_var.set("🟢 Ready - Database Connected")
+        self.status_var.set("● Connected to Database")
         status_bar = tk.Label(status_frame, 
                              textvariable=self.status_var, 
-                             bg=self.colors['bg_secondary'],
-                             fg=self.colors['text_secondary'],
-                             font=('Segoe UI', 9),
+                             bg=self.colors['bg_tertiary'],
+                             fg=self.colors['success'],
+                             font=('Segoe UI', 10),
                              anchor=tk.W)
-        status_bar.pack(side=tk.LEFT, fill=tk.X, padx=15, pady=8)
+        status_bar.pack(side=tk.LEFT, fill=tk.X, padx=25, pady=15)
     
     def create_student_tab(self):
         """
@@ -293,7 +285,7 @@ class GradeMateApp:
         """
         # Student tab frame
         student_frame = ttk.Frame(self.notebook)
-        self.notebook.add(student_frame, text="👥 Student Management")
+        self.notebook.add(student_frame, text="Student Management")
         
         # Main container with better spacing
         container = ttk.Frame(student_frame)
@@ -377,7 +369,7 @@ class GradeMateApp:
         """
         # Marks tab frame
         marks_frame = ttk.Frame(self.notebook)
-        self.notebook.add(marks_frame, text="📊 Marks Management")
+        self.notebook.add(marks_frame, text="Marks Management")
         
         # Main container
         container = ttk.Frame(marks_frame)
@@ -456,7 +448,7 @@ class GradeMateApp:
         """
         # Reports tab frame
         reports_frame = ttk.Frame(self.notebook)
-        self.notebook.add(reports_frame, text="📈 Reports & Analytics")
+        self.notebook.add(reports_frame, text="Reports & Analytics")
         
         # Main container
         container = ttk.Frame(reports_frame)
@@ -510,23 +502,24 @@ class GradeMateApp:
         self.report_text.pack(side='left', fill='both', expand=True)
         scrollbar_report.pack(side='right', fill='y')
         
-        # Add welcome message
+        # Add welcome message with glassmorphism theme
         welcome_msg = """
-🎓 Welcome to GradeMate Reports & Analytics!
+✨ Welcome to GradeMate Reports & Analytics!
 
-📊 Available Reports:
+� Available Glassmorphism Reports:
 • Student Averages - View all students with their average marks and grades
-• Top Scorers - See the highest-performing students (Top 10)
+• Top Scorers - See the highest-performing students (Top 10)  
 • Report Card - Generate detailed individual student report cards
 
-🚀 Click any button above to generate reports!
+� Click any glassmorphism button above to generate reports!
 
-✨ Features:
+🌊 Enhanced Features:
 • Advanced MySQL functions (AVG, ROUND, IF, JOIN)
-• Real-time calculations
-• Professional formatting
+• Real-time calculations with glassmorphism UI
+• Professional formatting with glass effects
 • Grade assignment (A+, A, B+, B, C, F)
 • Pass/Fail status determination
+• Smooth glassmorphism animations and effects
         """
         
         self.report_text.insert(tk.END, welcome_msg)
@@ -558,7 +551,7 @@ class GradeMateApp:
             messagebox.showinfo("Success", "Student added successfully!")
             self.clear_student_fields()
             self.load_students()
-            self.status_var.set(f"✅ Student {name} added successfully")
+            self.status_var.set(f"✓ Student {name} added successfully")
             
         except ValueError:
             messagebox.showerror("Error", "Roll number and class must be valid numbers")
@@ -594,7 +587,7 @@ class GradeMateApp:
                 messagebox.showinfo("Success", "Student updated successfully!")
                 self.clear_student_fields()
                 self.load_students()
-                self.status_var.set(f"✏️ Student {name} updated successfully")
+                self.status_var.set(f"✓ Student {name} updated successfully")
             
         except ValueError:
             messagebox.showerror("Error", "Roll number and class must be valid numbers")
@@ -627,7 +620,7 @@ class GradeMateApp:
                     self.clear_student_fields()
                     self.load_students()
                     self.load_marks()  # Refresh marks list
-                    self.status_var.set(f"🗑️ Student with roll number {roll_no} deleted")
+                    self.status_var.set(f"✓ Student with roll number {roll_no} deleted")
             
         except ValueError:
             messagebox.showerror("Error", "Please enter a valid roll number")
@@ -669,7 +662,7 @@ class GradeMateApp:
             messagebox.showinfo("Success", "Marks added successfully!")
             self.clear_marks_fields()
             self.load_marks()
-            self.status_var.set(f"📈 Marks added for roll number {roll_no} in {subject}")
+            self.status_var.set(f"✓ Marks added for roll number {roll_no} in {subject}")
             
         except ValueError:
             messagebox.showerror("Error", "Roll number and marks must be valid numbers")
@@ -815,7 +808,7 @@ class GradeMateApp:
             
             # Disable text widget to make it read-only
             self.report_text.config(state='disabled')
-            self.status_var.set("📊 Student averages report generated successfully")
+            self.status_var.set("✓ Student averages report generated successfully")
             
         except Error as e:
             messagebox.showerror("Database Error", f"Error generating report: {e}")
